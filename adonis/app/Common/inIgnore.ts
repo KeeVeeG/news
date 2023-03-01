@@ -9,5 +9,7 @@ export const ignorelist = fs
 
 export const inIgnore = (str: string): boolean => {
   const reg = new RegExp(ignorelist.map((e) => `(${e})`).join('|'), 'im')
-  return reg.test(str)
+  const match = str.match(reg)?.[0]
+  console.log(match)
+  return !!match
 }
