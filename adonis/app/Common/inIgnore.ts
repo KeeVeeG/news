@@ -4,7 +4,7 @@ import path from 'path'
 export const ignorelist = fs
   .readFileSync(path.join(__dirname, '/../../ignore-list.txt'))
   .toString()
-  .split('\r\n')
+  .split('\n')
   .map((e) => e.trim())
 
 export const inIgnore = (str: string): boolean => {
