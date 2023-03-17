@@ -14,7 +14,7 @@ export default class News extends BaseSchema {
       table.string('color')
       table.string('img')
       table.specificType('tags', 'varchar[]').notNullable().index()
-      table.jsonb('els').notNullable()
+      table.jsonb('els')
       table.text('html').notNullable()
     })
   }

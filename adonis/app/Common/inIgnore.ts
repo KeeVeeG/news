@@ -7,9 +7,13 @@ export const ignorelist = fs
   .split('\n')
   .map((e) => e.trim())
 
+export const ignoreRegExp = new RegExp(ignorelist.map((e) => `(${e})`).join('|'), 'im')
+
 export const inIgnore = (str: string): boolean => {
-  const reg = new RegExp(ignorelist.map((e) => `(${e})`).join('|'), 'im')
-  const match = str.match(reg)?.[0]
-  console.log(match)
+  const match = str.match(ignoreRegExp)?.[0]
   return !!match
+}
+
+export const someInIgnore = (arr: string[]): boolean => {
+  return arr.some((e) => inIgnore(e))
 }

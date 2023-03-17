@@ -1,7 +1,16 @@
 import Database from '@ioc:Adonis/Lucid/Database'
 import { TinyPNG } from 'tinypng'
 
-const tinyClient = new TinyPNG('h9g8MN0bmWBRXd1cM9Y0ZTDdxFhKyc8X')
+const tinyClient = new TinyPNG('TCZ65XXXlvlySHh3WQ62p8QktsqPYkff')
+
+export const compress = async (url: string) => {
+  try {
+    const result = await tinyClient.compress(url)
+    return Buffer.from(result.data)
+  } catch {
+    return null
+  }
+}
 
 const tiny = async (url: string): Promise<string | null> => {
   if (!url) return null
@@ -10,11 +19,7 @@ const tiny = async (url: string): Promise<string | null> => {
     return exists.id
   } else {
     const format = url.split('.').reverse()[0]
-    let data: Buffer | null = null
-    try {
-      const result = await tinyClient.compress(url)
-      data = Buffer.from(result.data)
-    } catch {}
+    const data = await compress(url)
     const [{ id }] = await Database.table('imgs').insert({ url, data, format }).returning('id')
     return `${id}.${format}`
   }
