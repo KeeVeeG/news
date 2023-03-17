@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import parser from 'App/Common/parser'
+import gptParser from 'App/Common/gptParser'
 
 export default class ParserController {
   async parse({ request, logger }: HttpContextContract) {
@@ -25,5 +26,9 @@ export default class ParserController {
     } else {
       return await parser(url)
     }
+  }
+
+  async gpt(){
+    await gptParser()
   }
 }

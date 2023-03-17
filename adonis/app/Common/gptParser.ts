@@ -3,7 +3,6 @@ import { Worker } from 'worker_threads'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { JSDOM } from 'jsdom'
 import tiny from './tiny'
-import { inIgnore } from './inIgnore'
 
 type pEl = {
   tag: 'p'
@@ -34,7 +33,7 @@ type codeEl = {
 type El = pEl | h2El | imgEl | videoEl | codeEl
 
 const parser = async () => {
-  const rows = await Database.from('news').whereNull('els').where({ hidden: false })
+  const rows = await Database.from('news').whereNull('els').where({ hidden: false }).orderBy('id')
   for (const row of rows) {
     const { html, id } = row
     const dom = new JSDOM(html).window.document.querySelector('.single__content')

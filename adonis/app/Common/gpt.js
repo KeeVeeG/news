@@ -1,5 +1,5 @@
 const { parentPort } = require('worker_threads')
-const apiKey = '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'
+const apiKey = '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'
 
 const send = async (text) => {
   let result

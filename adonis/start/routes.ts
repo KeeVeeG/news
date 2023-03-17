@@ -4,6 +4,8 @@ import { generatePathsForExists } from 'App/Common/generatePath'
 
 Route.post('', 'Parser.parse')
 
+Route.get('gpt', 'Parser.gpt')
+
 Route.post('path', async () => {
   await generatePathsForExists()
 })
