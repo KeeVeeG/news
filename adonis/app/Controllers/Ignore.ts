@@ -6,13 +6,14 @@ import { JSDOM } from 'jsdom'
 export default class IgnoreController {
   async index({ logger }: HttpContextContract) {
     console.time('Update ignore')
-    const rows = await Database.from('news').select(['id', 'title', 'tags', 'html']).orderBy('id')
+    const rows = await Database.from('news').select(['id', 'title', 'tags', 'html', 'url']).orderBy('id')
     await Database.transaction(async (trx) => {
-      for (const { id, title, tags, html } of rows) {
+      for (const { id, title, tags, html, url } of rows) {
+        logger.info('ignore calc', {id})
         const set = async (hidden: boolean) => {
           await trx.from('news').where({ id }).update({ hidden })
         }
-        if (someInIgnore([title, ...tags])) {
+        if (someInIgnore([title, ...tags, url])) {
           await set(true)
           continue
         }

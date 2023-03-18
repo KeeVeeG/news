@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     apiSecret: '123',
     // Keys within public are also exposed client-side
     public: {
-      baseURL: 'http://127.0.0.1:3333/'
+      baseURL: 'http://45.76.88.68:3334/'
     }
   }
 })
